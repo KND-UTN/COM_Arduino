@@ -1,4 +1,6 @@
 #include <SoftwareSerial.h>
+// Autores: Ignacio Pieve Roiger & Leila Aylen Spini
+
 SoftwareSerial wifi(6, 7);
 
 void setup() {
