@@ -26,7 +26,42 @@ void setup() {
 
 
 void loop() {
-  // Loop code
+  // Declaramos el Buffer del mensaje
+  String frase = "";
+  char lectura = wifi.read();
+  boolean sumar = true;
+  
+  // Si ha llegado algun caracter (o sea, cuando la lectura es distinta a -1), comienza a acumularse
+  if(lectura != -1)
+  {
+    // Se acumula hasta que se dejen de recibir caracteres (-1), o se reciba un salto de linea (10)
+    while(lectura != -1 && lectura != 10)
+    {
+      if(sumar == true) frase+=lectura;
+      if(frase == "+IPD,")
+      {
+         frase="";
+         sumar = false;
+      }
+      lectura = wifi.read();
+      if(lectura == ':' and sumar == false) sumar=true;
+    }
+    Serial.println(frase);
+  }
+
+  // Aqui van los metodos de cada instruccion
+  
+  // Acelerar el motor
+  if (frase == ":acelerar")
+  {
+    digitalWrite(13, HIGH);
+  }
+  
+  // Frenar el motor
+  if (frase == ":frenar")
+  {
+    digitalWrite(13, LOW);
+  }
 }
 
 
